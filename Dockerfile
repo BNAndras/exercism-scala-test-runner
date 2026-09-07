@@ -14,11 +14,9 @@ FROM eclipse-temurin:22.0.2_9-jdk-alpine@sha256:f412633b75c929e68fd83d36a3abd910
 
 WORKDIR /opt/test-runner
 
-RUN apk add --no-cache bash jq wget coreutils diffutils sed && \
-    wget -q https://github.com/lampepfl/dotty/releases/download/3.4.2/scala3-3.4.2.tar.gz && \
-    tar -xzf scala3-3.4.2.tar.gz && \
-    rm scala3-3.4.2.tar.gz && \
-    mv scala3-3.4.2 /opt/scala
+RUN apk add --no-cache bash jq wget coreutils diffutils sed 
+ADD --unpack=true https://github.com/lampepfl/dotty/releases/download/3.4.2/scala3-3.4.2.tar.gz /opt/
+RUN ln -s /opt/scala3-3.4.2 /opt/scala
 
 ENV PATH="/opt/scala/bin:${PATH}"
 
